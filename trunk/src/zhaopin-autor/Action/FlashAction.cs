@@ -16,33 +16,13 @@ namespace MyFirstWebTest
         public bool start()
         {
             int _webId = WebElementPool.WEB1_ID;
-            string _szRefreshClose = @"Refresh_success_LastUpdate";
-            Attribute _aBtnRefresh, _aBtnSave, _aResumeManage, _btnCareerSearch;
+            Attribute _aBtnRefresh;
 
-            _aResumeManage.szKey = WebElementPool.HREF;
-            _aResumeManage.szValue = "CV_CResumeManage.php";
-            _aBtnRefresh.szKey = WebElementPool.CLASS;
-            _aBtnRefresh.szValue = "iconRefresh";
-            _aBtnSave.szKey = WebElementPool.CLASS;
-            _aBtnSave.szValue = "panel_btn_s";
+            _aBtnRefresh.szKey = WebElementPool.URL;
+            _aBtnRefresh.szValue = "IsRefreshResume";
 
-            _btnCareerSearch.szKey = WebElementPool.HREF;
-            _btnCareerSearch.szValue = "advance_search.php";
-
-            m_Form.invokeMember(_webId, WebElementPool.A, _aResumeManage, WebElementPool.CLICK);
-            m_Form.wait(_webId, 15000);
-
-            m_Form.cacheElements2(_webId, WebElementPool.A, _aBtnRefresh);
-            for (int _i = 0; _i < m_Form.cacheCount(); _i++)
-            {
-                m_Form.cacheInvokeMemberD(_i, WebElementPool.CLICK);
-                m_Form.wait(_webId, 3000);
-                //Console.WriteLine("点击确定");
-                m_Form.invokeMember(_webId, WebElementPool.A, _aBtnSave, WebElementPool.CLICK);
-                m_Form.wait(_webId, 3000);
-                //Console.WriteLine("点击关闭");
-                m_Form.invokeMember2(_webId, WebElementPool.A, _szRefreshClose, WebElementPool.CLICK);
-            }
+            //点击刷新
+            m_Form.invokeMember(_webId, _aBtnRefresh, WebElementPool.CLICK);
 
             //点击搜索职位
             m_Form.invokeMember(_webId, WebElementPool.A, _btnCareerSearch, WebElementPool.CLICK);

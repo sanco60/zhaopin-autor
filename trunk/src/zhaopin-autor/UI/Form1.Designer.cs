@@ -31,6 +31,9 @@
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.start_btn = new System.Windows.Forms.Button();
             this.webBrowser2 = new System.Windows.Forms.WebBrowser();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // webBrowser1
@@ -64,17 +67,37 @@
             this.webBrowser2.Visible = false;
             this.webBrowser2.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser2_DocumentCompleted);
             // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox1.Location = new System.Drawing.Point(81, 0);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(137, 29);
+            this.textBox1.TabIndex = 3;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(224, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(150, 50);
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(991, 563);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.webBrowser2);
             this.Controls.Add(this.start_btn);
             this.Controls.Add(this.webBrowser1);
             this.Name = "Form1";
             this.Text = "ZhaopinWebAutor";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -83,7 +106,9 @@
         private System.Windows.Forms.WebBrowser webBrowser1;
         private System.Windows.Forms.WebBrowser webBrowser2;
 
-        private System.Windows.Forms.Button start_btn;        
+        private System.Windows.Forms.Button start_btn;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.PictureBox pictureBox1;        
     }
 }
 

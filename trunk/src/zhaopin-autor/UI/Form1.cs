@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Text.RegularExpressions;
-using SHDocVw;
 using System.Runtime.InteropServices;
+using SHDocVw;
+using mshtml;
 
 namespace MyFirstWebTest
 {    
@@ -526,6 +527,43 @@ namespace MyFirstWebTest
                 }
             }
             return bResult;
+        }
+
+        public delegate bool DisplayElemDelegate(int id, string szTag, Attribute a);
+        public bool displayElem(int id, string szTag, Attribute a)
+        {
+            bool bResult = false;
+            if (this.InvokeRequired)
+            {
+                DisplayElemDelegate _dg = new DisplayElemDelegate(displayElem);
+                bResult = (bool)this.Invoke(_dg, new object[] { id, szTag, a });
+            } else
+            {
+                System.Windows.Forms.WebBrowser _webBrowser = (WebElementPool.WEB1_ID == id) ? webBrowser1 : webBrowser2;
+                HtmlElement _elem = findElement(id, szTag, a);
+                if (null == _elem)
+                {
+                    Console.WriteLine("Error: No element had been found.");
+                    return false;
+                }
+                mshtml.HTMLDocument _doc = (mshtml.HTMLDocument)_webBrowser.Document.DomDocument;
+                mshtml.HTMLBody _body = (mshtml.HTMLBody)_doc.body;
+                mshtml.IHTMLControlRange _range = (mshtml.IHTMLControlRange)_body.createControlRange();
+                mshtml.IHTMLControlElement _Img = (mshtml.IHTMLControlElement)_elem.DomElement;
+
+                _range.add(_Img);
+                _range.execCommand("Copy", false, null);
+                Image _img = Clipboard.GetImage();
+
+                pictureBox1.Image = _img;
+                bResult = true;
+            }
+            return bResult;
+        }
+
+        public string getTextCode()
+        {
+            return textBox1.Text;
         }
 
         private Thread m_Thread;

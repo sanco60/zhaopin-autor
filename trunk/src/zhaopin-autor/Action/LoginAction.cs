@@ -42,20 +42,51 @@ namespace MyFirstWebTest
             
             m_Form.invokeMember(_webID, WebElementPool.BUTTON, _loginKey, WebElementPool.CLICK);
             m_Form.wait(_webID, 0);
-            m_Form.wait(_webID, 3000);
 
-            string _szUrl = m_Form.getCurUrl(_webID);
-            string _szMarkLogin = "login";
-
-            if (-1 != _szUrl.IndexOf(_szMarkLogin))
+            do
             {
-                //验证码登陆
+                m_Form.wait(_webID, 3000);
+                string _szUrl = m_Form.getCurUrl(_webID);
+                string _szMarkLogin = "login";
+                if (-1 == _szUrl.IndexOf(_szMarkLogin))
+                    break;
+
+                /* 验证码登陆界面 */
                 string _szLoginName = "LoginName";
                 string _szPassword = "Password";
+                string _szTextCode = null;
+
+                Attribute _aValidImg, _aLoginBtn, _aCheckCode;
+                _aValidImg.szKey = WebElementPool.ID;
+                _aValidImg.szValue = "checkimg";
+                _aLoginBtn.szKey = WebElementPool.ID;
+                _aLoginBtn.szValue = "loginbutton";
+                _aCheckCode.szKey = WebElementPool.ID;
+                _aCheckCode.szValue = "CheckCode";
+
                 m_Form.setAttribute(_webID, _szLoginName, _account.szID);
                 m_Form.setAttribute(_webID, _szPassword, _account.szPassword);
-                
-            }
+
+                m_Form.displayElem(_webID, WebElementPool.IMG, _aValidImg);
+                do
+                {
+                    _szTextCode = m_Form.getTextCode();
+                    if (null != _szTextCode)
+                    {
+                        if (4 == _szTextCode.Length)
+                            break;
+                    }
+                    m_Form.wait(_webID, 3000);
+
+                } while (true);
+
+                m_Form.setAttribute(_webID, _aCheckCode.szValue, _szTextCode);
+                m_Form.invokeMember(_webID, WebElementPool.INPUT, _aLoginBtn, WebElementPool.CLICK);
+                m_Form.wait(_webID, 0);
+
+            } while (true);
+
+            m_Form.wait(_webID, 3000);
             m_Form.invokeMember2(_webID, WebElementPool.SPAN, "popup_close", WebElementPool.CLICK);
 
             Console.WriteLine("===Login over.===");

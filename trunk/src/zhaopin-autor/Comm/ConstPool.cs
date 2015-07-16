@@ -42,6 +42,7 @@ namespace MyFirstWebTest
         public const string CCTYPE = "cctype";
         public const string TYPE = "type";
         public const string BUTTON = "button";
+        public const string URL = "url";
 
         public const string CLICK = "click";
         //public const string MOUSEMOVE = "mousemove";
