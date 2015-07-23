@@ -25,25 +25,24 @@ namespace MyFirstWebTest
 
             int _webID = WebElementPool.WEB1_ID;
 
-            Attribute _btnJobName, _btnCoName, _btnJobarea, _areaValue;
+            string _szJobTitle = "职位名";
+            string _szCoTitle = "公司名";
 
-            _btnJobName.szKey = WebElementPool.TITLE;
-            _btnJobName.szValue = "仅搜职位名关键字";
-            _btnCoName.szKey = WebElementPool.TITLE;
-            _btnCoName.szValue = "仅搜公司名关键字";
-            _btnJobarea.szKey = WebElementPool.NAME;
-            _btnJobarea.szValue = "btnJobarea";
-            _areaValue.szKey = WebElementPool.VALUE;
+            Attribute _inJobarea, _areaValue;
+
+            _inJobarea.szKey = WebElementPool.ID;
+            _inJobarea.szValue = "JobLocation";
+            _areaValue.szKey = WebElementPool.TITLE;
             _areaValue.szValue = "";
 
             //选择搜索类
             if (ESearchCata.EJobName == m_SearchFactor.eSearchCata)
             {
-                m_Form.invokeMember(_webID, WebElementPool.LI, _btnJobName, WebElementPool.CLICK);
+                m_Form.invokeMember2(_webID, WebElementPool.A, _szJobTitle, WebElementPool.CLICK);
             }
             else if (ESearchCata.ECoName == m_SearchFactor.eSearchCata)
             {
-                m_Form.invokeMember(_webID, WebElementPool.LI, _btnCoName, WebElementPool.CLICK);
+                m_Form.invokeMember2(_webID, WebElementPool.A, _szCoTitle, WebElementPool.CLICK);
             }
             else
             {
@@ -51,16 +50,18 @@ namespace MyFirstWebTest
             }
 
             //选择地区
-            m_Form.getAttribute(_webID, WebElementPool.INPUT, _btnJobarea, ref _areaValue);
+            m_Form.getAttribute(_webID, WebElementPool.INPUT, _inJobarea, ref _areaValue);
             if (_areaValue.szValue != "武汉")
             {
-                Attribute _aConfirm, _aWuhan;
+                Attribute _aJobarea, _aConfirm, _aWuhan;
+                _aJobarea.szKey = WebElementPool.ID;
+                _aJobarea.szValue = "buttonSelCity";
                 _aConfirm.szKey = WebElementPool.CCTYPE;
                 _aConfirm.szValue = "confirm";
                 _aWuhan.szKey = WebElementPool.NAME;
                 _aWuhan.szValue = @"JL\d+180200";
 
-                m_Form.invokeMember(_webID, WebElementPool.INPUT, _btnJobarea, WebElementPool.CLICK);
+                m_Form.invokeMember(_webID, WebElementPool.INPUT, _aJobarea, WebElementPool.CLICK);
                 m_Form.wait(_webID, 3000);
                 m_Form.invokeMember(_webID, WebElementPool.INPUT, _aWuhan, WebElementPool.CLICK);
                 m_Form.wait(_webID, 3000);

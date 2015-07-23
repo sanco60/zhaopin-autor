@@ -34,13 +34,13 @@ namespace MyFirstWebTest
             m_LoginAction.start();
             m_FlashAction.start();
 
-            /*List<SSearchFactor> _list = SearchFactorManager.instance().getSearchFactors();
+            List<SSearchFactor> _list = SearchFactorManager.instance().getSearchFactors();
             foreach(SSearchFactor _sf in _list)
             {
                 m_SearchAction.setSearchFactor(_sf);
                 m_SearchAction.start();
-                m_ApplyAction.start();
-            }*/
+                //m_ApplyAction.start();
+            }
 
             return;
         }
