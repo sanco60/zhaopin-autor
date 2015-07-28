@@ -39,7 +39,7 @@ namespace MyFirstWebTest
             {
                 m_SearchAction.setSearchFactor(_sf);
                 m_SearchAction.start();
-                //m_ApplyAction.start();
+                m_ApplyAction.start();
             }
 
             return;

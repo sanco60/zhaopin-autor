@@ -56,10 +56,10 @@ namespace MyFirstWebTest
                 Attribute _aJobarea, _aConfirm, _aWuhan;
                 _aJobarea.szKey = WebElementPool.ID;
                 _aJobarea.szValue = "buttonSelCity";
-                _aConfirm.szKey = WebElementPool.CCTYPE;
-                _aConfirm.szValue = "confirm";
-                _aWuhan.szKey = WebElementPool.NAME;
-                _aWuhan.szValue = @"JL\d+180200";
+                _aWuhan.szKey = WebElementPool.INAME;
+                _aWuhan.szValue = "武汉";
+                _aConfirm.szKey = WebElementPool.ONCLICK;
+                _aConfirm.szValue = "fnClickOk";
 
                 m_Form.invokeMember(_webID, WebElementPool.INPUT, _aJobarea, WebElementPool.CLICK);
                 m_Form.wait(_webID, 3000);
@@ -72,20 +72,20 @@ namespace MyFirstWebTest
             Attribute _inputValue, _inputKeyAttr, _btnSearch;
 
             _inputKeyAttr.szKey = WebElementPool.ID;
-            _inputKeyAttr.szValue = "kwdselectid";
+            _inputKeyAttr.szValue = "KeyWord_kw2";
             _inputValue.szKey = WebElementPool.VALUE;
             _inputValue.szValue = m_SearchFactor.szSearchText;
 
-            _btnSearch.szKey = WebElementPool.SRC;
-            _btnSearch.szValue = "jsearch.gif";
+            _btnSearch.szKey = WebElementPool.CLASS;
+            _btnSearch.szValue = "doesSearch";
 
             //填入搜索关键字
             m_Form.setAttribute(_webID, WebElementPool.INPUT, _inputKeyAttr, _inputValue);
 
             //点击搜索按钮            
-            m_Form.invokeMember(_webID, WebElementPool.INPUT, _btnSearch, WebElementPool.CLICK);
+            m_Form.invokeMember(_webID, WebElementPool.BUTTON, _btnSearch, WebElementPool.CLICK);
 
-            m_Form.wait(_webID, 30000);
+            m_Form.wait(_webID, 0);
 
             Console.WriteLine("===Search over.===");
             return true;

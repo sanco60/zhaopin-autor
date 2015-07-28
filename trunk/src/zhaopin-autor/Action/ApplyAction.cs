@@ -21,15 +21,14 @@ namespace MyFirstWebTest
                 return false;
 
             int _webID = WebElementPool.WEB1_ID;
-            //string _szRegex = @"class=tr0";
-            string _szCoRegex = @"class=coname";
-            string _szJobRegex = @"class=jobname";
-            string _szCoDetailsPattern = @"class=td1234";
-            string _szCheckRegex = @"selectJob";
+            string _szJobRegex = @"href=http://jobs.zhaopin.com/";
+            string _szCoRegex = @"href=http://company.zhaopin.com/";
+            string _szCoDetailsPattern = "公司规模";
+            string _szCheckRegex = "type=checkbox";
             string _szCoName = "";
             string _szJobName = "";
             string _szCoDetails = "";
-            string _szBtnApply = @"申请选中职位";
+            string _szBtnApply = "申请职位";
             string _szBtnNext = @"/pageron.gif";
             string _szScalePattern = @"\d+(?=人)";
 
@@ -37,21 +36,21 @@ namespace MyFirstWebTest
             _attr.szKey = WebElementPool.HREF;
             _attr.szValue = "";
             _classPattern.szKey = WebElementPool.CLASS;
-            _classPattern.szValue = @"^tr[01]$";
-            _btnClose.szKey = WebElementPool.ID;
-            _btnClose.szValue = "window_close_apply";
+            _classPattern.szValue = "newlist";
+            _btnClose.szKey = WebElementPool.TITLE;
+            _btnClose.szValue = "关闭";
 
             Regex _rg = new Regex(_szScalePattern);
             bool bNext = false;
             do {
-                m_Form.cacheElements2(_webID, WebElementPool.TR, _classPattern);
+                m_Form.cacheElements2(_webID, WebElementPool.TABLE, _classPattern);
                 int _count = m_Form.cacheCount();
-                if (0 == _count || 0 != _count % 2)
+                if (0 == _count)
                 {
                     Console.WriteLine("Error: cache wrong!");
                     continue;
                 }
-                for (int _i = 0; _i < _count; _i += 2)
+                for (int _i = 0; _i < _count; _i ++)
                 {
                     //获取职位名称
                     m_Form.cacheIndexText(_i, WebElementPool.A, _szJobRegex, ref _szJobName);
@@ -59,9 +58,8 @@ namespace MyFirstWebTest
                     m_Form.cacheIndexText(_i, WebElementPool.A, _szCoRegex, ref _szCoName);
 
                     //获取公司规模
-                    m_Form.cacheIndexText(_i+1, WebElementPool.TD, _szCoDetailsPattern, ref _szCoDetails);
+                    m_Form.cacheIndexText(_i, WebElementPool.SPAN, _szCoDetailsPattern, ref _szCoDetails);
                     string _szCorpMaxSize = _rg.Match(_szCoDetails).ToString();
-                    //m_Form.nextTextInCache(WebElementPool.TD, _szCoDetailsPattern, ref _szCoDetails);
                     
                     m_FilterAction.setContent(EFilter.JobName, _szJobName);
                     m_FilterAction.setContent(EFilter.CoName, _szCoName);
@@ -77,10 +75,15 @@ namespace MyFirstWebTest
                 }
                 //点击申请选中职位
                 m_Form.invokeMember2(_webID, WebElementPool.A, _szBtnApply, WebElementPool.CLICK);
-                m_Form.wait(_webID, 10000);
-                
+                m_Form.wait(_webID, 3000);
+
+                //点击忽略
+                m_Form.invokeMember2(_webID, WebElementPool.SPAN, "忽略", WebElementPool.CLICK);
+                m_Form.wait(_webID, 3000);
+
                 //关闭弹出子窗口
-                m_Form.invokeMember(_webID, WebElementPool.IMG, _btnClose, WebElementPool.CLICK);
+                m_Form.invokeMember(_webID, WebElementPool.A, _btnClose, WebElementPool.CLICK);
+                m_Form.wait(_webID, 3000);
 
                 //点击下一页
                 bNext = m_Form.invokeMember2(_webID, WebElementPool.A, _szBtnNext, WebElementPool.CLICK);

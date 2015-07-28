@@ -25,6 +25,7 @@ namespace MyFirstWebTest
 
             //点击刷新
             m_Form.invokeMember(_webId, WebElementPool.A, _aBtnRefresh, WebElementPool.CLICK);
+            m_Form.wait(_webId, 3000);
 
             //点击搜索职位
             m_Form.invokeMember2(_webId, WebElementPool.A, _szSou, WebElementPool.CLICK);

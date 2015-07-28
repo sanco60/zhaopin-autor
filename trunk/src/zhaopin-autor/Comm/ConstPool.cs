@@ -43,6 +43,9 @@ namespace MyFirstWebTest
         public const string TYPE = "type";
         public const string BUTTON = "button";
         public const string URL = "url";
+        public const string INAME = "iname";
+        public const string ONCLICK = "onclick";
+        public const string TABLE = "table";
 
         public const string CLICK = "click";
         //public const string MOUSEMOVE = "mousemove";
